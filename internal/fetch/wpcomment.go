@@ -2,16 +2,19 @@ package fetch
 
 // Specs at https://developer.wordpress.org/rest-api/reference/comments/#list-comments
 type WPComment struct {
-	ID         int    `json:"id"`
-	Post       int    `json:"post"`
-	Parent     int    `json:"parent"`
-	Author     int    `json:"author"`
-	AuthorName string `json:"author_name"`
-	AuthorURL  string `json:"author_url"`
-	Date       string `json:"date"`
-	DateGmt    string `json:"date_gmt"`
-	Content    struct {
+	ID              int    `json:"id"`
+	Post            int    `json:"post"`
+	Parent          int    `json:"parent"`
+	Author          int    `json:"author"`
+	AuthorName      string `json:"author_name"`
+	AuthorURL       string `json:"author_url"`
+	AuthorIP        string `json:"author_ip"`
+	AuthorUserAgent string `json:"author_user_agent"`
+	Date            string `json:"date"` // like 2022-08-28T16:30:29
+	DateGmt         string `json:"date_gmt"`
+	Content         struct {
 		Rendered string `json:"rendered"`
+		Raw      string `json:"raw"`
 	} `json:"content"`
 	Link             string `json:"link"`
 	Status           string `json:"status"`
@@ -41,5 +44,9 @@ type WPComment struct {
 			Embeddable bool   `json:"embeddable"`
 			Href       string `json:"href"`
 		} `json:"in-reply-to"`
+		Children []struct {
+			Embeddable bool   `json:"embeddable"`
+			Href       string `json:"href"`
+		} `json:"children"`
 	} `json:"_links"`
 }

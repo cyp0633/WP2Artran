@@ -1,6 +1,7 @@
 package fetch
 
 import (
+	"encoding/json"
 	"fmt"
 	"testing"
 
@@ -8,8 +9,9 @@ import (
 )
 
 func TestParse(*testing.T) {
-	comments := parse(exampleComment)
-	fmt.Println(comments)
+	comment := parse(exampleComment)
+	b, _ := json.Marshal(comment)
+	fmt.Println(string(b))
 }
 
 func TestRequest(*testing.T) {
