@@ -1,6 +1,7 @@
 package fetch
 
 import (
+	"encoding/json"
 	"io"
 	"net/http"
 	"strconv"
@@ -8,17 +9,14 @@ import (
 	"github.com/cyp0633/wp-comment-converter/internal/conf"
 )
 
-type WPComment struct {
-}
-
 func FetchComments() (comments []WPComment) {
 	for page := 1; ; page++ {
 		body := request(page)
 		newComments := parse(body)
+		comments = append(comments, newComments...)
 		if len(newComments) < 20 {
 			break
 		}
-		comments = append(comments, newComments...)
 	}
 	return
 }
@@ -46,5 +44,9 @@ func request(page int) (body []byte) {
 }
 
 func parse(body []byte) (comments []WPComment) {
+	err := json.Unmarshal(body, &comments)
+	if err != nil {
+		panic(err)
+	}
 	return
 }
