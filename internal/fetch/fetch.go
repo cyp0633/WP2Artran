@@ -22,7 +22,7 @@ func FetchComments() (comments []WPComment) {
 }
 
 func request(page int) (body []byte) {
-	url := conf.Conf.Old.Hostname + "/wp-json/wp/v2/comments?per_page=20&page=" + strconv.Itoa(page) + "&context=edit"
+	url := "https://" + conf.Conf.Old.Hostname + "/wp-json/wp/v2/comments?per_page=20&page=" + strconv.Itoa(page) + "&context=edit"
 	user := conf.Conf.Auth.Username
 	pass := conf.Conf.Auth.Password
 	client := &http.Client{}

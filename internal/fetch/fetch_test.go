@@ -3,11 +3,21 @@ package fetch
 import (
 	"fmt"
 	"testing"
+
+	"github.com/cyp0633/wp-comment-converter/internal/conf"
 )
 
 func TestParse(*testing.T) {
 	comments := parse(exampleComment)
 	fmt.Println(comments)
+}
+
+func TestRequest(*testing.T) {
+	conf.Conf.Old.Hostname = "example.com"
+	conf.Conf.Auth.Username = "test"
+	conf.Conf.Auth.Password = "ABCD abcd 1234 5678"
+	body := request(1)
+	fmt.Println(string(body))
 }
 
 var exampleComment = []byte(`
