@@ -2,6 +2,7 @@ package trans
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"log"
 	"net/http"
@@ -13,6 +14,8 @@ import (
 	"github.com/cyp0633/wp-comment-converter/internal/conf"
 	"github.com/cyp0633/wp-comment-converter/internal/fetch"
 )
+
+var pageKeyMap = map[int]string{}
 
 func Convert(wpComments []fetch.WPComment) {
 	artrans := []Artran{}
@@ -58,6 +61,11 @@ func writeToFile(artrans []Artran) {
 }
 
 func getPageKey(post int) (pageKey string) {
+	// if pageKey is already in map, return it
+	if pageKey, ok := pageKeyMap[post]; ok {
+		log.Println("Found page key", pageKey, "for post", post, "in map")
+		return pageKey
+	}
 	// e.g. https://new.example.com/archives/123
 	url := "https://" + conf.Conf.New.Hostname + conf.Conf.Old.PermalinkPrefix + strconv.Itoa(post)
 	// GET web content in url
@@ -75,13 +83,16 @@ func getPageKey(post int) (pageKey string) {
 	matches := regex.FindSubmatch(bodyContent)
 	if len(matches) != 2 {
 		log.Println("Failed to find page key for post", post)
-		return string(post)
+		pageKeyMap[post] = fmt.Sprint(post)
+		return fmt.Sprint(post)
 	}
 	pageKey = string(matches[1])
 	if pageKey[0] != '/' {
 		pageKey = "/" + pageKey
 	}
 	log.Println("Found page key", pageKey, "for post", post)
+	// add pageKey to map
+	pageKeyMap[post] = pageKey
 	return
 }
 
