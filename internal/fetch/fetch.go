@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/cyp0633/wp-comment-converter/internal/conf"
+	"github.com/cyp0633/WP2Artran/internal/conf"
 )
 
 func FetchComments() (comments []WPComment) {

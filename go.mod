@@ -1,4 +1,4 @@
-module github.com/cyp0633/wp-comment-converter
+module github.com/cyp0633/WP2Artran
 
 go 1.20
 

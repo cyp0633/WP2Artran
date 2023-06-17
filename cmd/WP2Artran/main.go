@@ -3,9 +3,9 @@ package main
 import (
 	"os"
 
-	"github.com/cyp0633/wp-comment-converter/internal/conf"
-	"github.com/cyp0633/wp-comment-converter/internal/fetch"
-	"github.com/cyp0633/wp-comment-converter/internal/trans"
+	"github.com/cyp0633/WP2Artran/internal/conf"
+	"github.com/cyp0633/WP2Artran/internal/fetch"
+	"github.com/cyp0633/WP2Artran/internal/trans"
 )
 
 func main() {

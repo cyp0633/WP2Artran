@@ -11,8 +11,8 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/cyp0633/wp-comment-converter/internal/conf"
-	"github.com/cyp0633/wp-comment-converter/internal/fetch"
+	"github.com/cyp0633/WP2Artran/internal/conf"
+	"github.com/cyp0633/WP2Artran/internal/fetch"
 )
 
 var pageKeyMap = map[int]string{}
