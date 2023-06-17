@@ -7,11 +7,12 @@ type WPComment struct {
 	Parent          int    `json:"parent"`
 	Author          int    `json:"author"`
 	AuthorName      string `json:"author_name"`
+	AuthorEmail     string `json:"author_email"`
 	AuthorURL       string `json:"author_url"`
 	AuthorIP        string `json:"author_ip"`
 	AuthorUserAgent string `json:"author_user_agent"`
 	Date            string `json:"date"` // like 2022-08-28T16:30:29
-	DateGmt         string `json:"date_gmt"`
+	DateGMT         string `json:"date_gmt"`
 	Content         struct {
 		Rendered string `json:"rendered"`
 		Raw      string `json:"raw"`

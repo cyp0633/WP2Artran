@@ -13,6 +13,47 @@ import (
 	"github.com/cyp0633/wp-comment-converter/internal/fetch"
 )
 
+func Convert(wpComments []fetch.WPComment) {
+	artrans := []Artran{}
+	for _, wpComment := range wpComments {
+		artrans = append(artrans, convert(wpComment))
+	}
+	writeToFile(artrans)
+}
+
+func convert(comment fetch.WPComment) (artran Artran) {
+	artran.ID = comment.ID
+	artran.RID = comment.Parent
+	artran.Content = comment.Content.Rendered
+	artran.UA = comment.AuthorUserAgent
+	artran.IP = comment.AuthorIP
+	artran.CreatedAt = convertTime(comment.DateGMT)
+	artran.UpdatedAt = convertTime(comment.DateGMT)
+	artran.IsCollapsed = false
+	if comment.Status == "approved" {
+		artran.IsPending = false
+	} else {
+		artran.IsPending = true
+	}
+	artran.VoteUp = 0
+	artran.VoteDown = 0
+	artran.Nickname = comment.AuthorName
+	artran.Email = comment.AuthorEmail
+	artran.Link = comment.AuthorURL
+	artran.PageKey = getPageKey(comment.Post)
+	return
+}
+
+func writeToFile(artrans []Artran) {
+	bytes, err := json.Marshal(artrans)
+	if err != nil {
+		panic(err)
+	}
+	err = os.WriteFile(conf.Conf.OutputPath, bytes, 0644)
+	if err != nil {
+		panic(err)
+	}
+}
 
 func getPageKey(post int) (pageKey string) {
 	// e.g. https://new.example.com/archives/123

@@ -7,7 +7,7 @@ type Artran struct {
 	Content       string `json:"content"`
 	UA            string `json:"ua"`
 	IP            string `json:"ip"`
-	CreatedAt     string `json:"created_at"`
+	CreatedAt     string `json:"created_at"` // like 2021-10-28 20:50:15 +0800 +0800
 	UpdatedAt     string `json:"updated_at"`
 	IsCollapsed   bool   `json:"is_collapsed"`
 	IsPending     bool   `json:"is_pending"`
