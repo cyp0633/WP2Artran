@@ -3,6 +3,7 @@ package trans
 import (
 	"encoding/json"
 	"io"
+	"log"
 	"net/http"
 	"os"
 	"regexp"
@@ -53,6 +54,7 @@ func writeToFile(artrans []Artran) {
 	if err != nil {
 		panic(err)
 	}
+	log.Println("Written to", conf.Conf.OutputPath)
 }
 
 func getPageKey(post int) (pageKey string) {
@@ -72,12 +74,14 @@ func getPageKey(post int) (pageKey string) {
 	regex := regexp.MustCompile(`<meta http-equiv="refresh" content="0; url=https://` + conf.Conf.New.Hostname + `/([^"]+)">`)
 	matches := regex.FindSubmatch(bodyContent)
 	if len(matches) != 2 {
-		panic("no meta refresh found")
+		log.Println("Failed to find page key for post", post)
+		return string(post)
 	}
 	pageKey = string(matches[1])
 	if pageKey[0] != '/' {
 		pageKey = "/" + pageKey
 	}
+	log.Println("Found page key", pageKey, "for post", post)
 	return
 }
 

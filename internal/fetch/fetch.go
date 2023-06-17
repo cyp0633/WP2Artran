@@ -3,6 +3,7 @@ package fetch
 import (
 	"encoding/json"
 	"io"
+	"log"
 	"net/http"
 	"strconv"
 
@@ -15,10 +16,10 @@ func FetchComments() (comments []WPComment) {
 		newComments := parse(body)
 		comments = append(comments, newComments...)
 		if len(newComments) < 20 {
-			break
+			log.Printf("Fetched %v comments in total", len(comments))
+			return
 		}
 	}
-	return
 }
 
 func request(page int) (body []byte) {
@@ -40,6 +41,7 @@ func request(page int) (body []byte) {
 	if err != nil {
 		panic(err)
 	}
+	log.Println("Fetched page", page)
 	return
 }
 
@@ -47,6 +49,9 @@ func parse(body []byte) (comments []WPComment) {
 	err := json.Unmarshal(body, &comments)
 	if err != nil {
 		panic(err)
+	}
+	for _, comment := range comments {
+		log.Println("Parsed comment", comment.Content.Raw)
 	}
 	return
 }
