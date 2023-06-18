@@ -1,5 +1,7 @@
 # WP2Artran - WordPress to Artalk comment format
 
+[简体中文 zh-CN](./README.zh-CN.md)
+
 Compared to the legacy export method, REST API is obviously a more modern way to retrieve WordPress comments. On the other hand, Artrans is a comment format used by [Artalk](https://artalk.js.org/) and can be imported into some other comment systems, e.g. Twikoo. This makes Artrans a good intermediate comment format.
 
 We assume that both your old and new site is online, and you've set up redirections of the new site. For example, there's an old post on a WordPress instance at <https://old.example.com/archives/123>, and the corresponding new post is at <https://new.example.com/post/new-post>. "Set up redirections" means that when someone visits <https://new.example.com/archives/123>, the browser will be redirected to <https://new.example.com/post/new-post>. You don't have to set Artalk or anything else up on the new site.
